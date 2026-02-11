@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentine Invitation</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+
+body{
+height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+background:radial-gradient(circle at top,#ff9fb3,#ff4e8a 60%,#ff2e63);
+overflow:hidden;
+}
+
+.container{width:100%;max-width:420px}
+
+.card{
+width:100%;
+padding:40px 32px;
+border-radius:30px;
+background:rgba(255,255,255,0.18);
+backdrop-filter:blur(20px);
+box-shadow:0 30px 80px rgba(0,0,0,.28);
+text-align:center;
+color:white;
+animation:fade .6s ease;
+position:relative;
+}
+
+.card::after{
+content:"";
+position:absolute;
+inset:0;
+border-radius:30px;
+padding:2px;
+background:linear-gradient(135deg,rgba(255,255,255,.7),transparent);
+-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+-webkit-mask-composite:xor;
+mask-composite:exclude;
+pointer-events:none; /* FIX: prevents overlay from blocking buttons */
+}
+
+@keyframes fade{
+from{opacity:0;transform:translateY(20px)}
+to{opacity:1;transform:translateY(0)}
+}
+
+h1{
+font-family:'Playfair Display',serif;
+font-size:2rem;
+margin-bottom:18px;
+line-height:1.35;
+}
+
+img{
+width:230px;
+border-radius:20px;
+margin:18px auto 26px;
+display:block;
+box-shadow:0 18px 40px rgba(0,0,0,.35);
+transition:.35s;
+}
+
+img:hover{
+transform:scale(1.04);
+}
+
+.btn{
+padding:13px 30px;
+border:none;
+border-radius:40px;
+background:linear-gradient(135deg,#ffffff,#ffe3ec);
+color:#ff2e63;
+font-weight:700;
+cursor:pointer;
+margin-top:8px;
+transition:.3s;
+box-shadow:0 10px 25px rgba(0,0,0,.25);
+}
+
+.btn:hover{
+transform:scale(1.1);
+box-shadow:0 18px 35px rgba(0,0,0,.35);
+}
+
+.hidden{display:none}
+
+.title{
+font-family:'Playfair Display',serif;
+font-size:2.4rem;
+margin-bottom:12px;
+}
+
+.details{line-height:2;margin-top:18px;font-size:1.05rem}
+
+/* fireworks */
+.firework{
+position:fixed;
+width:8px;
+height:8px;
+border-radius:50%;
+background:white;
+animation:explode 900ms ease-out forwards;
+}
+
+@keyframes explode{
+from{transform:scale(1);opacity:1}
+to{transform:scale(20);opacity:0}
+}
+
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<!-- PAGE 1 -->
+<div class="card" id="p1">
+<h1>Hi, baby! Something special is coming... 💌<br>Do you know what it is?</h1>
+<img src="cat1.jpg">
+<button class="btn" onclick="next('p1','p2')">Of course ❤️</button>
+</div>
+
+<!-- PAGE 2 -->
+<div class="card hidden" id="p2">
+<h1>WEEEEEEEEH</h1>
+<img src="cat2.jpg">
+<button class="btn" onclick="next('p2','p3')">OO NGA</button>
+</div>
+
+<!-- PAGE 3 -->
+<div class="card hidden" id="p3">
+<h1>It's Valentine's Day! 🎆</h1>
+<img src="cat3.jpg" onclick="next('p3','p4');fireworks()">
+<p>Click the cat</p>
+</div>
+
+<!-- PAGE 4 -->
+<div class="card hidden" id="p4">
+<h1>Will you be my Valentine?</h1>
+<img src="cat4.jpg">
+<div>
+<button class="btn" onclick="next('p4','p6')">Yes</button>
+<button class="btn" onclick="next('p4','p5')">No</button>
+</div>
+</div>
+
+<!-- PAGE NO -->
+<div class="card hidden" id="p5">
+<h1>At talagang nag-no ka???? 😭</h1>
+<img src="cat5.jpg">
+<h1 style="font-size:1.4rem;margin-top:10px">Again — Will you be my Valentine?</h1>
+<div>
+<button class="btn" onclick="next('p5','p6')">Yes</button>
+<button class="btn" onclick="next('p5','p6')">Yes</button>
+</div>
+</div>
+
+<!-- FINAL PAGE -->
+<div class="card hidden" id="p6">
+<div class="title">Thank you. Babyyyyyyyy ❤️</div>
+<img src="cat6.jpg">
+<div class="details">
+<strong>Event:</strong> Valentines Celebration<br>
+<strong>Date:</strong> February 14, 2026<br>
+<strong>Time:</strong> After Class<br>
+<strong>Venue:</strong> Your Chosen Location
+</div>
+<p style="margin-top:20px;font-size:1.1rem">Can't wait to see you! 💕</p>
+</div>
+
+</div>
+
+<script>
+function next(hide,show){
+document.getElementById(hide).classList.add('hidden');
+document.getElementById(show).classList.remove('hidden');
+}
+
+function fireworks(){
+for(let i=0;i<28;i++){
+const f=document.createElement('div');
+f.className='firework';
+f.style.left=Math.random()*100+'vw';
+f.style.top=Math.random()*100+'vh';
+document.body.appendChild(f);
+setTimeout(()=>f.remove(),900);
+}
+}
+</script>
+
+</body>
+</html>
