@@ -87,16 +87,62 @@ const sensors = {
    LOADING SCREEN
 ========================================== */
 
-window.addEventListener("load", () => {
+const loadingPercent = document.querySelector(".loading-percent");
+const loadingStatus = document.getElementById("loadingStatus");
 
-    setTimeout(() => {
+const messages = [
+
+    "Initializing Sensors...",
+
+    "Connecting to ESP32...",
+
+    "Calibrating Water Parameters...",
+
+    "Loading Dashboard...",
+
+    "System Ready..."
+
+];
+
+let progress = 0;
+
+const loading = setInterval(()=>{
+
+    progress++;
+
+    loadingPercent.textContent = progress + "%";
+
+    if(progress==20)
+        loadingStatus.textContent=messages[0];
+
+    if(progress==40)
+        loadingStatus.textContent=messages[1];
+
+    if(progress==60)
+        loadingStatus.textContent=messages[2];
+
+    if(progress==80)
+        loadingStatus.textContent=messages[3];
+
+    if(progress==100){
+
+        loadingStatus.textContent=messages[4];
+
+        clearInterval(loading);
+
+    }
+
+},25);
+
+window.addEventListener("load",()=>{
+
+    setTimeout(()=>{
 
         loader.classList.add("hidden");
 
-    }, 2500);
+    },2600);
 
 });
-
 /* ==========================================
    DATE & TIME
 ========================================== */
