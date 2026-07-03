@@ -527,15 +527,31 @@ color:#ff5252;
 
     border-radius:12px;
 
-    background:linear-gradient(135deg,#18b7ff,#0091ff);
+    background:linear-gradient(135deg,#ff4d4d,#c62828);
 
     color:white;
 
     font-size:18px;
 
+    font-weight:600;
+
     cursor:pointer;
 
     margin-bottom:25px;
+
+    transition:.3s;
+
+    box-shadow:0 6px 18px rgba(255,77,77,.35);
+
+}
+
+#overrideBtn:hover{
+
+    background:linear-gradient(135deg,#ff6666,#d32f2f);
+
+    transform:translateY(-2px);
+
+    box-shadow:0 10px 24px rgba(255,77,77,.5);
 
 }
 
