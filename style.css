@@ -304,16 +304,23 @@ font-weight:700;
 
 .sensor-card{
 
-    display:flex;
-    flex-direction:column;
+background:var(--glass);
 
-    justify-content:center;   /* vertical center */
-    align-items:center;       /* horizontal center */
+backdrop-filter:blur(18px);
 
-    text-align:center;
+border:1px solid var(--glass-border);
 
-    padding:18px;
-    min-height:320px; /* important for true vertical centering */
+border-radius:20px;
+
+padding:18px;
+
+box-shadow:var(--card-shadow);
+
+transition:.35s;
+
+overflow:hidden;
+
+position:relative;
 
 }
 
@@ -369,21 +376,19 @@ font-size:19px;
 
 .sensor-card canvas{
 
-    display:block;
-    margin:10px auto;
+height:130px!important;
 
 }
 
-
 .sensor-card h1{
 
-    font-size:46px;
+text-align:center;
 
-    margin:10px 0;
+font-size:32px;
 
-    display:flex;
-    justify-content:center;
-    align-items:center;
+margin-top:12px;
+
+font-weight:700;
 
 }
 
@@ -391,9 +396,9 @@ font-size:19px;
 
 text-align:center;
 
-font-size:24px;
+font-size:18px;
 
-margin-top:8px;
+margin-top:10px;
 
 font-weight:500;
 
