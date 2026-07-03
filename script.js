@@ -27,8 +27,6 @@ const overrideBtn = document.getElementById("overrideBtn");
 
 const modal = document.getElementById("modal");
 
-const confirmOverride = document.getElementById("confirmOverride");
-const cancelOverride = document.getElementById("cancelOverride");
 
 
 /* ==========================================
@@ -581,8 +579,7 @@ function sensorLoop() {
 }
 }
 
-sensorLoop();
-setInterval(sensorLoop, 5000);
+
 /* ==========================================
    WATER QUALITY INDEX
 ========================================== */
@@ -961,9 +958,11 @@ updateElement.style.fontSize = "14px";
 
 updateElement.style.opacity = ".8";
 
-document
-.querySelector(".system-panel")
-.appendChild(updateElement);
+const statusCard = document.querySelector(".status-card");
+
+if(statusCard){
+    statusCard.appendChild(updateElement);
+}
 
 function updateTimestamp(){
 
@@ -977,20 +976,18 @@ function updateTimestamp(){
    MODAL
 ========================================== */
 
+/* ==========================================
+   MANUAL OVERRIDE MODAL
+========================================== */
+
+const closeModal = document.getElementById("closeModal");
+
 overrideBtn.addEventListener("click", () => {
     modal.style.display = "flex";
 });
 
-document.getElementById("closeModal").addEventListener("click", () => {
+closeModal.addEventListener("click", () => {
     modal.style.display = "none";
-});
-
-confirmOverride.addEventListener("click", () => {
-    modal.style.display = "none";
-
-    addLog("Manual Override Activated.");
-
-    addAlert("Manual Override Enabled.", "#18b7ff");
 });
 
 window.addEventListener("click", (e) => {
@@ -999,31 +996,44 @@ window.addEventListener("click", (e) => {
     }
 });
 
-const devices = {
-    airPump: document.getElementById("airPump"),
-    filterPump: document.getElementById("filterPump"),
-    phPump: document.getElementById("phPump"),
-    calciumPump: document.getElementById("calciumPump")
-};
+/* ==========================================
+   DEVICE SWITCHES
+========================================== */
 
-function logDeviceChange(name, state) {
-    addLog(`${name} turned ${state ? "ON" : "OFF"}`);
-}
+const devices = [
+    {
+        element: document.getElementById("airPump"),
+        name: "Air Pump"
+    },
+    {
+        element: document.getElementById("filterPump"),
+        name: "Filtration Pump"
+    },
+    {
+        element: document.getElementById("phPump"),
+        name: "pH Dosing Pump"
+    },
+    {
+        element: document.getElementById("calciumPump"),
+        name: "Calcium Dosing Pump"
+    }
+];
 
-devices.airPump.addEventListener("change", () => {
-    logDeviceChange("Air Pump", devices.airPump.checked);
-});
+devices.forEach(device => {
 
-devices.filterPump.addEventListener("change", () => {
-    logDeviceChange("Filtration Pump", devices.filterPump.checked);
-});
+    device.element.addEventListener("change", () => {
 
-devices.phPump.addEventListener("change", () => {
-    logDeviceChange("pH Dosing Pump", devices.phPump.checked);
-});
+        const state = device.element.checked ? "ON" : "OFF";
 
-devices.calciumPump.addEventListener("change", () => {
-    logDeviceChange("Calcium Dosing Pump", devices.calciumPump.checked);
+        addLog(`${device.name} turned ${state}`);
+
+        addAlert(
+            `${device.name} ${state}`,
+            device.element.checked ? "#00d084" : "#ffb300"
+        );
+
+    });
+
 });
 
 /* ==========================================
@@ -1105,5 +1115,8 @@ async function getSensorData(){
     */
 
 }
+
+sensorLoop();
+setInterval(sensorLoop, 5000);
 
 
